@@ -117,8 +117,6 @@
 
     </plugins>
   </build>
-
-  </build>
   <modules>
     <module>Model</module>
     <module>ViewController</module>

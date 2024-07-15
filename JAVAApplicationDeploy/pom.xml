@@ -104,8 +104,9 @@
         <executions>
           <execution>
             <id>prepare-agent</id>
+	<phase>verify</phase>
             <goals>
-              <goal>prepare-agent</goal>
+              <goal>report</goal>
             </goals>
           </execution>
         </executions>

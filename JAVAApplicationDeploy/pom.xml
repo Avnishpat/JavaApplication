@@ -25,7 +25,26 @@
           <include>**</include>
         </includes>
       </resource>
-    </resources>	 
+    </resources>
+    <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.11</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.0.2155</version>
+      </plugin>
+
   </build>
   <modules>
     <module>Model</module>

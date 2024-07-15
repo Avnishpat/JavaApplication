@@ -17,16 +17,85 @@
     <sonar.language>java</sonar.language>
     <sonar.host.url>http://mysqllt01.flexagon:9000</sonar.host.url>
   </properties>
+  <profiles>
+      <profile>
+        <id>Java11</id>
+        <activation>
+          <jdk>11</jdk>
+        </activation>
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                <release>${java.version}</release>
+                <testRelease>11</testRelease>
+                <testSource>11</testSource>
+                <testTarget>11</testTarget>
+                <compilerArgs>
+                  <arg>-parameters</arg>
+                </compilerArgs>
+              </configuration>
+            </plugin>
+          </plugins>
+        </build>
+      </profile>
+    <profile>
+      <id>Java8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <testSource>1.8</testSource>
+              <testTarget>1.8</testTarget>
+              <compilerArgs>
+                <arg>-parameters</arg>
+              </compilerArgs>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
-    <resources>
-      <resource>
-        <directory>/</directory>
-        <includes>
-          <include>**</include>
-        </includes>
-      </resource>
-    </resources>
-    <plugin>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <systemPropertyVariables>
+            <flexagon.fd.install.root>/tmp</flexagon.fd.install.root>
+            <append>true</append>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.11</version>
@@ -39,11 +108,15 @@
           </execution>
         </executions>
       </plugin>
-    <plugin>
+	  
+      <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.9.0.2155</version>
       </plugin>
+
+    </plugins>
+  </build>
 
   </build>
   <modules>
